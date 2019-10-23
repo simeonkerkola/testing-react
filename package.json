@@ -29,7 +29,7 @@
     "test:e2e": "as-a E2E start-server-and-test dev:core http://localhost:8001 cy:open",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "lint": "eslint . --cache --cache-location node_modules/.cache/eslint",
+    "lint": "eslint",
     "validate": "concurrently --names \"lint,test:run,test:e2e\" --prefix \"[{name}]\" --prefix-colors \"bgGreen.reset.bold,bgBlue.reset.bold,bgRed.reset.bold\" \"npm run lint --silent\" \"npm run test:run --silent\" \"npm run test:e2e:run --silent\"",
     "precommit": "lint-staged && npm run --silent validate",
     "clean": "rimraf node_modules ./shared/node_modules ./client/node_modules ./server/node_modules ./other/configuration/calculator/node_modules ./other/configuration/calculator.solution/node_modules",
@@ -84,7 +84,7 @@
       ],
       "**/+(src|test|scripts)/**/*.js": [
         "prettier --write",
-        "eslint --cache --cache-location node_modules/.cache/eslint",
+        "eslint",
         "git add"
       ]
     }
