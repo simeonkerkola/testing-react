@@ -14,30 +14,33 @@ describe('authentication', () => {
     // cy.createNewUser().then(user => {
     //   more cy commands here
     // })
-    //
-    // With the user created, go ahead and use the cy commands to:
-    // 1. visit the app: visitApp
-    // 2. Click the login link
-    // 3. type the user's username in the username field
-    // 4. type the user's password in the password field
-    // 5. submit the form by clicking the submit button
-    //
-    // Finally assert the route changed to '/'
-    // and verify that the display name contains user.username
-  })
 
-  //////// Elaboration & Feedback /////////
-  // When you've finished with the exercises:
-  // 1. Copy the URL below into your browser and fill out the form
-  // 2. remove the `.skip` from the test below
-  // 3. Change submitted from `false` to `true`
-  // 4. And you're all done!
-  /*
-  http://ws.kcd.im/?ws=Testing&e=e2e%20register&em=
-  */
-  it.skip('I submitted my elaboration and feedback', () => {
-    const submitted = false // change this when you've submitted!
-    expect(submitted).toBe(true)
+    cy.createNewUser().then(user => {
+      // With the user created, go ahead and use the cy commands to:
+      // 1. visit the app: visitApp
+      cy.visit('/')
+        .getByText(/login/i)
+        // 2. Click the login link
+        .click()
+
+        // 3. type the user's username in the username field
+        .getByLabelText(/username/i)
+        .type(user.username)
+
+        // 4. type the user's password in the password field
+        .getByLabelText(/password/i)
+        .type(user.password)
+
+        // 5. submit the form by clicking the submit button
+        .getByText(/submit/i)
+        .click()
+
+        // Finally assert the route changed to '/'
+        .assertRoute('/')
+
+        // and verify that the display name contains user.username
+        .getByTestId('username-display')
+        .should('contain', user.username)
+    })
   })
-  ////////////////////////////////
 })
